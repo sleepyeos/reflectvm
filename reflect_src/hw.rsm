@@ -1,0 +1,11 @@
+	mov r3, $12
+	mov r0:r1, _s
+_loop:	
+	sys r0:r1, $02
+	inc r1
+	dec r3
+	jnz _loop
+	hlt
+_s:	
+	db 48 65 6C 6C 6F 2C 20 52 65
+	db 66 6C 65 63 74 56 4D 21 0A

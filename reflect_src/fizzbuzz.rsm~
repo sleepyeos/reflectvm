@@ -1,0 +1,34 @@
+_start:
+
+
+
+
+_print_fizz:
+
+
+_print_buzz:
+	mov r4:r5 _buzztext
+	mov r6, $04
+	call _print_loop
+	ret
+_print_loop:	
+	sys r4:r5, $02
+	inc r5
+	dec r6
+	jnz _print_loop
+	call _newline
+	ret
+_print_fizz:
+	mov r4:r5 _fizztext
+	mov r6, $04
+	call _print_loop
+	call _newline
+	ret
+_buzztext:
+	db 62 75 7A 7A
+_fizztext:
+	db 66 69 7A 7A
+_newline:
+	push $0A
+	sys $00
+	ret

@@ -1,0 +1,49 @@
+_start:
+	mov r0, $00
+	mov r8:r9, $1000
+_loop:
+	mov r2, $00
+	mod r0, $03
+	jnz _skipfizz
+	call _print_fizz
+	mov r2, $01
+_skipfizz:
+	mod r0, $05
+	jnz _skipbuzz
+	call _print_buzz
+	mov r2, $01
+_skipbuzz:
+	cmp r2, $00
+	jnz _endloop
+	mov [r8:r9], r0
+	sys r8:r9, $06
+_endloop:
+	call _newline
+	inc r0
+	cmp r0, $65
+	jnz _loop
+	hlt
+_print_fizz:
+	mov r4:r5 _fizztext
+	mov r6, $04
+	call _print_loop
+	ret
+_print_buzz:
+	mov r4:r5 _buzztext
+	mov r6, $04
+	call _print_loop
+	ret
+_print_loop:	
+	sys r4:r5, $02
+	inc r5
+	dec r6
+	jnz _print_loop
+	ret
+_buzztext:
+	db 62 75 7A 7A
+_fizztext:
+	db 66 69 7A 7A
+_newline:
+	push $0A
+	sys $00
+	ret

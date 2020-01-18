@@ -1,0 +1,27 @@
+_start:
+	mov r7, $01
+	mov r0:r1, $1000
+	sys r0:r1, $07
+_loop:	
+	sys r0:r1, $06
+	call _linebreak
+	mov r2, [r0:r1]
+	cmp r2, $01
+	jz _done
+	mod r2, $02
+	jz _even
+_odd:
+	mul r2, $03
+	add r2, r7
+	mov [r0:r1], r2
+	jmp _loop
+_even:
+	div r2, $02
+	mov [r0:r1], r2
+	jmp _loop
+_done:
+	hlt
+_linebreak:
+	push $0A
+	sys $00
+	ret

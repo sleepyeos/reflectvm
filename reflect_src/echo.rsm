@@ -1,0 +1,24 @@
+	;; This program reads a line from stdin
+	;; and echos it back to stdout
+	call _prompt
+	mov r0:r1, $1000
+_input_loop:	
+	sys r0:r1, $3
+	mov r3, [r0:r1]
+	inc r1
+	cmp r3, $0A
+	jnz _input_loop
+	mov r2, r1
+	mov r0:r1, $1000
+_output_loop:
+	sys r0:r1, $2
+	inc r1
+	cmp r1, r2
+	jnz _output_loop
+	hlt
+_prompt:
+	mov r0:r1, _prompt_text
+	sys r0:r1, $2
+	ret
+_prompt_text:
+	db 3E
